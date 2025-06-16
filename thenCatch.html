@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Then e Catch</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <h1 class="display-1">Then e Catch usando AbortController</h1>
+  <p class="">Validação com then/catch e AbortController</p>
+
+  <form>
+    <div class="row">
+      <div class="my-3 mx-5 col-md-5">
+        <label for="nomeRepositorio" class="form-label">Nome do repositório</label>
+        <input type="text" id="nomeRepositorio" onkeyup="validadores.validarNomeRepositorio()" class="form-control"
+          required autofocus>
+        <output id="outputNomeRepositorio" class="form-text"></output>
+      </div>
+      <div class="my-3 mx-5 col-md-5">
+        <label class="form-label" for="senha">Senha</label>
+        <input class="form-control" type="password" id="senha" onkeyup="validadores.validarSenha()" required>
+        <output class="form-text" id="outputSenha"></output>
+      </div>
+    </div>
+
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script>
+    const outputNomeRepositorio = document.getElementById('outputNomeRepositorio');
+    const outputSenha = document.getElementById('outputSenha');
+    const repositorioExistente = ["api-com-fastapi", "pagina-cidade", "cadastro-vingadores", "pratica-flexbox"];
+
+    function criarValidadores() {
+      let controllerNome = new AbortController();
+      let controllerSenha = new AbortController();
+
+      function verificarNomeRepositorioDisponivel(nome, signal) {
+        return new Promise((resolve, reject) => {
+          const atraso = setTimeout(() => {
+            if (signal.aborted) {
+              reject("❌ Consulta cancelada.");
+              return;
+            }
+
+            if (repositorioExistente.includes(nome.toLowerCase())) {
+              reject(`❌ O repositório "${nome}" já existe. Escolha outro nome.`);
+            } else {
+              resolve(`✅ O nome "${nome}" está disponível.`);
+            }
+          }, 1000);
+
+          signal.addEventListener("abort", () => clearTimeout(atraso));
+        });
+      }
+
+      function validarNomeRepositorio() {
+        const nome = document.getElementById('nomeRepositorio').value.trim();
+
+        if (nome.length < 3) {
+          outputNomeRepositorio.innerHTML = "❌ O nome do repositório deve ter pelo menos 3 caracteres.";
+          return;
+        }
+
+        controllerNome.abort();
+        controllerNome = new AbortController();
+
+        verificarNomeRepositorioDisponivel(nome, controllerNome.signal)
+          .then(msg => outputNomeRepositorio.innerHTML = msg)
+          .catch(err => outputNomeRepositorio.innerHTML = err);
+      }
+
+      function verificarSenhaValida(senha, signal) {
+        return new Promise((resolve, reject) => {
+          const atraso = setTimeout(() => {
+            if (signal.aborted) {
+              reject("❌ Verificação de senha cancelada.");
+              return;
+            }
+
+            let mensagens = "";
+
+            if (senha.length < 8) {
+              mensagens += "❌ A senha deve ter pelo menos 8 caracteres.<br>";
+            }
+            if (!/[0-9]/.test(senha)) {
+              mensagens += "❌ A senha deve possuir pelo menos um número.<br>";
+            }
+            if (!/[A-Z]/.test(senha)) {
+              mensagens += "❌ A senha deve ter pelo menos uma letra maiúscula.<br>";
+            }
+            if (!/[!@#&*()\[\]{}~]/.test(senha)) {
+              mensagens += "❌ A senha deve conter pelo menos um caractere especial: ! @ # & * ( ) [ ] { } ~.<br>";
+            }
+
+            if (mensagens) {
+              reject(mensagens);
+            } else {
+              resolve("✅ Senha válida.");
+            }
+          }, 1000);
+
+          signal.addEventListener("abort", () => clearTimeout(atraso));
+        });
+      }
+
+      function validarSenha() {
+        const senha = document.getElementById('senha').value.trim();
+
+        controllerSenha.abort();
+        controllerSenha = new AbortController();
+
+        verificarSenhaValida(senha, controllerSenha.signal)
+          .then(msg => outputSenha.innerHTML = msg)
+          .catch(err => outputSenha.innerHTML = err);
+      }
+
+      return {
+        validarNomeRepositorio,
+        validarSenha
+      };
+    }
+
+    const validadores = criarValidadores();
+  </script>
+</body>
+
+</html>
