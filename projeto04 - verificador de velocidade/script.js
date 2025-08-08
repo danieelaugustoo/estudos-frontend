@@ -6,13 +6,14 @@ verificarVelocidade(130)
 
 function verificarVelocidade(velocidade) {
     const limite = 70
+    const kmPorPonto  =5
     if (velocidade <= limite) {
         console.log("Ok")
     }
     else {
         let excesso = velocidade - limite;
-        let pontos = Math.floor(excesso / 5);
-        if (pontos > 12){
+        const pontos = Math.floor(excesso / kmPorPonto);
+        if (pontos >= 12){
             console.log('Carteira suspensa')
         }
         else {
