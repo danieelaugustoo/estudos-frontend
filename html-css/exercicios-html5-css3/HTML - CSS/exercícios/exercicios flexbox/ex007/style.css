@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: darkgrey;
+}
+
+.conteiner {
+    background-color: lightblue;
+    display: flex;
+    flex-flow: row wrap;
+}
+.item {
+background-color: lightpink;
+   border: 1px solid black;
+   padding: 16px;
+}
+#i1{
+ order: 0;
+}
+#i2{
+    order: -2;
+}
+#i3{
+    order: 7;
+}
+#i4{
+   order: -72; 
+}
+#i5{
+      order: -11;      
+    }
+#i6{
+    order: 9;
+}
