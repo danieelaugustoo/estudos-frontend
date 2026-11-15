@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Benefícios</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="benefits-section">
+      <div class="carousel-container">
+        <h1>Benefícios para Associados</h1>
+
+        <input type="radio" name="carousel" id="slide1-radio" checked />
+        <input type="radio" name="carousel" id="slide2-radio" />
+        <input type="radio" name="carousel" id="slide3-radio" />
+        <input type="radio" name="carousel" id="slide4-radio" />
+
+        <div class="auto-scroll-container">
+          <div class="carousel-wrapper">
+            <div class="slide">
+              <img
+                src="assets/beneficio-1.jpg"
+                alt="Vista aérea de clube com quadras e piscina"
+              />
+              <div class="benefit-text">
+                <p>Desconto exclusivo em produtos.</p>
+              </div>
+            </div>
+
+            <div class="slide">
+              <img
+                src="assets/beneficio-2.png"
+                alt="Ponte estaiada moderna na cidade"
+              />
+              <div class="benefit-text">
+                <p>Atendimento personalizado 24/7.</p>
+              </div>
+            </div>
+
+            <div class="slide">
+              <img
+                src="assets/beneficio-3.png"
+                alt="Prédio antigo com jardim"
+              />
+              <div class="benefit-text">
+                <p>Vantagens em Parcerias.</p>
+              </div>
+            </div>
+
+            <div class="slide">
+              <img
+                src="assets/beneficio-4.png"
+                alt="Área de lazer e esportes"
+              />
+              <div class="benefit-text">
+                <p>Acesso Prioritário.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-nav-manual">
+          <label for="slide4-radio" class="nav prev">&#10094;</label>
+          <label for="slide2-radio" class="nav next">&#10095;</label>
+
+          <label for="slide1-radio" class="nav prev">&#10094;</label>
+          <label for="slide3-radio" class="nav next">&#10095;</label>
+
+          <label for="slide2-radio" class="nav prev">&#10094;</label>
+          <label for="slide4-radio" class="nav next">&#10095;</label>
+
+          <label for="slide3-radio" class="nav prev">&#10094;</label>
+          <label for="slide1-radio" class="nav next">&#10095;</label>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
