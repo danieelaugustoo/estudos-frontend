@@ -1,0 +1,24 @@
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+.env
+
+# Node
+node_modules/
+dist/
+
+# Android / Gradle
+.gradle/
+build/
+local.properties
+
+# SO
+.DS_Store
+Thumbs.db
